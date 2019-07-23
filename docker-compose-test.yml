@@ -1,0 +1,17 @@
+version: "2.2"
+services:
+  gatling-runner:
+    image: gatling:2.3.0
+    scale: 2 # Scale to see the result of multiple nodes
+    build:
+      context: gatling/2.3.0
+    command: [-s, sample.SampleService]
+    # networks:
+    #   - gatling_network
+    # depends_on:
+    #   - grafana
+    environment:
+      - LOCAL_USER_ID=`id -u $USER`
+    volumes:
+      - ./gatling/2.3.0/simulations:/opt/app/java/gatling/user-files/simulations
+      - ./gatling/2.3.0/results:/opt/app/java/gatling/results
